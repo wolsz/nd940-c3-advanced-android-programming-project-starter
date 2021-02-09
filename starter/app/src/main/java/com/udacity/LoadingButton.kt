@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.content.withStyledAttributes
 import kotlin.properties.Delegates
 
 class LoadingButton @JvmOverloads constructor(
@@ -12,6 +13,9 @@ class LoadingButton @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
     private var widthSize = 0
     private var heightSize = 0
+
+    private var buttonBackgroundColor = 0
+    private var buttonTextColor = 0
 
     private val valueAnimator = ValueAnimator()
 
@@ -21,7 +25,11 @@ class LoadingButton @JvmOverloads constructor(
 
 
     init {
+        isClickable = true
 
+        context.withStyledAttributes(attrs, R.styleable.LoadingButton) {
+
+        }
     }
 
 
