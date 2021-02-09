@@ -28,7 +28,8 @@ class LoadingButton @JvmOverloads constructor(
         isClickable = true
 
         context.withStyledAttributes(attrs, R.styleable.LoadingButton) {
-
+            buttonBackgroundColor = getColor(R.styleable.LoadingButton_backgroundColor, 0)
+            buttonTextColor = getColor(R.styleable.LoadingButton_android_textColor, 0)
         }
     }
 
