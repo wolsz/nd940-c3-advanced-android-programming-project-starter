@@ -15,7 +15,8 @@
         android:layout_height="60dp"
         android:layout_margin="20dp"
         android:layout_marginBottom="32dp"
-        android:background="@color/colorAccent"
+        app:backgroundColor="@color/colorPrimaryDark"
+        app:buttonTextColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -60,6 +61,7 @@
         android:layout_width="0dp"
         android:layout_height="150dp"
         android:background="#2196F3"
+        android:contentDescription="@string/background_for_banner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -68,6 +70,7 @@
         android:id="@+id/download_image"
         android:layout_width="120dp"
         android:layout_height="120dp"
+        android:contentDescription="@string/the_download_image"
         app:layout_constraintBottom_toBottomOf="@+id/download_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

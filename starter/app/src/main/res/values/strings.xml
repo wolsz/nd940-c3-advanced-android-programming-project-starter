@@ -15,4 +15,9 @@
     <string name="glide_repository_name">Glide - Image loading Library by BumpTech </string>
     <string name="current_repository_name">LoadApp - Current repository by Udacity</string>
     <string name="retrofit_repository_name">Retrofit - Type-safe HTTP client for Android and Java by Square, Inc</string>
+    <string name="background_for_banner">background for banner</string>
+    <string name="the_download_image">The download image</string>
+
+    <string name="download_text">DOWNLOAD</string>
+    <string name="loading_text">Getting Repository</string>
 </resources>
