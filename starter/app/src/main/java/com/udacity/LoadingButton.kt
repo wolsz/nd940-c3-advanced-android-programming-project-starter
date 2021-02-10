@@ -80,8 +80,9 @@ class LoadingButton @JvmOverloads constructor(
            setFloatValues(0f, 1.0f)
            interpolator = LinearInterpolator()
            duration = 3000
-           repeatCount = ValueAnimator.INFINITE
-           repeatMode = ValueAnimator.RESTART
+//           repeatCount = ValueAnimator.INFINITE
+//           repeatCount = 1
+//           repeatMode = ValueAnimator.RESTART
            addUpdateListener {
                animationProgress = animatedValue as Float
                invalidate()
