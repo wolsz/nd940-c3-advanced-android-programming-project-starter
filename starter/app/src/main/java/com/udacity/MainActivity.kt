@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var pendingIntent: PendingIntent
     private lateinit var action: NotificationCompat.Action
 
-    lateinit var repository: RadioGroup
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,27 +34,52 @@ class MainActivity : AppCompatActivity() {
 
         registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
-        repository = findViewById(R.id.radioGroup)
+        val repository:RadioGroup = findViewById(R.id.radioGroup)
 
         custom_button.setOnClickListener {
             val checkId = repository.checkedRadioButtonId
-            if (checkId == -1) {
-                Toast.makeText(applicationContext, "Please select a repository before clicking download", Toast.LENGTH_LONG).show()
-                custom_button.doneLoading()
+            when (checkId) {
+                -1 -> {
+                    Toast.makeText(applicationContext, "Please select a repository before clicking download", Toast.LENGTH_LONG).show()
+                    custom_button.buttonState = ButtonState.Clicked
+                }
+                R.id.glide_repositoryradioButton -> {
+                    custom_button.buttonState = ButtonState.Loading
+                    download("https://github.com/bumptech/glide/archive/master.zip")
+                }
+                R.id.currentprojectradioButton -> {
+                    custom_button.buttonState = ButtonState.Loading
+                    download("https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip")
+                }
+                R.id.retrofit_radioButton -> {
+                    custom_button.buttonState = ButtonState.Loading
+                    download("https://github.com/square/retrofit/archive/master.zip")
+
+                }
             }
-            download()
+
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(receiver)
     }
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
+
+            if (downloadID == id) {
+                Toast.makeText(context, "Download Completed", Toast.LENGTH_LONG).show()
+                custom_button.buttonState = ButtonState.Completed
+            }
         }
     }
 
-    private fun download() {
+    private fun download(url: String) {
         val request =
-            DownloadManager.Request(Uri.parse(URL))
+            DownloadManager.Request(Uri.parse(url))
                 .setTitle(getString(R.string.app_name))
                 .setDescription(getString(R.string.app_description))
                 .setRequiresCharging(false)

@@ -33,7 +33,7 @@
         app:layout_constraintTop_toBottomOf="@+id/download_background">
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/glide_repositoryradioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/glide_repository_name"
