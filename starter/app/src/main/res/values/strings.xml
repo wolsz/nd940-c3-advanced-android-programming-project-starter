@@ -20,4 +20,6 @@
 
     <string name="download_text">DOWNLOAD</string>
     <string name="loading_text">Getting Repository</string>
+
+    <string name="download_repository_channel_id">channelId</string>
 </resources>

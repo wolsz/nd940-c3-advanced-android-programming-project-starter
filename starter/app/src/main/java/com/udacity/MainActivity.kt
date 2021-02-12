@@ -7,12 +7,15 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
+import com.udacity.util.sendNotification
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -67,12 +70,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val receiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
+        override fun onReceive(context: Context, intent: Intent?) {
             val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
 
             if (downloadID == id) {
-                Toast.makeText(context, "Download Completed", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Download Completed here", Toast.LENGTH_LONG).show()
+//                val query = DownloadManager.Query()
+//                query.setFilterById(downloadID)
+////                val cursor: Cursor = d
                 custom_button.buttonState = ButtonState.Completed
+                val notificationManager = ContextCompat.getSystemService(
+                    context, NotificationManager::class.java
+                ) as NotificationManager
+                notificationManager.sendNotification("The download is now completed", context)
             }
         }
     }
