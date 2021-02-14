@@ -22,4 +22,6 @@
     <string name="loading_text">Getting Repository</string>
 
     <string name="download_repository_channel_id">channelId</string>
+    <string name="download_notification_channel_description">Download is complete</string>
+    <string name="download_notification_channel_name" translatable="true">Repository Downloader</string>
 </resources>

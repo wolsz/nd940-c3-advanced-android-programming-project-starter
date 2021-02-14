@@ -1,11 +1,15 @@
 package com.udacity.util
 
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.os.Build
 import androidx.core.app.NotificationCompat
+import com.udacity.DetailActivity
 import com.udacity.MainActivity
 import com.udacity.R
 
@@ -18,15 +22,14 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
 
 
     // TODO: Step 1.11 create intent
-//    val contentIntent = Intent(applicationContext, MainActivity::class.java)
-
+    val contentIntent = Intent(applicationContext, DetailActivity::class.java)
     // TODO: Step 1.12 create PendingIntent
-//    val contentPendingIntent = PendingIntent.getActivity(
-//        applicationContext,
-//        NOTIFICATION_ID,
-//        contentIntent,
-//        PendingIntent.FLAG_UPDATE_CURRENT
-//    )
+    val contentPendingIntent = PendingIntent.getActivity(
+        applicationContext,
+        NOTIFICATION_ID,
+        contentIntent,
+        PendingIntent.FLAG_UPDATE_CURRENT
+    )
 
 // TODO: Step 2.0 add style
 //    val eggImage = BitmapFactory.decodeResource(
@@ -54,7 +57,7 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
         .setContentTitle(applicationContext.getString(R.string.notification_title))
         .setContentText(messageBody)
 //        // TODO: Step 1.13 set content intent
-//        .setContentIntent(contentPendingIntent)
+        .setContentIntent(contentPendingIntent)
 //        // TODO: Step 2.1 add style to builder
 //        .setStyle(bigPicStyle)
 //        .setLargeIcon(eggImage)
@@ -66,18 +69,20 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
 //        )
 //        // TODO: Step 2.5 set priority
 //        .setPriority(NotificationCompat.PRIORITY_HIGH)
-//        .setAutoCancel(true)
+        .setAutoCancel(true)
 //
 //    // TODO Step 1.4 call notify
 //    // Deliver the notification
     notify(NOTIFICATION_ID, builder.build())
 //}
-
+}
 // TODO: Step 1.14 Cancel all notifications
 /**
  * Cancels all notifications.
  *
  */
-//fun NotificationManager.cancelNotifications() {
-//    cancelAll()
+fun NotificationManager.cancelNotifications() {
+    cancelAll()
 }
+
+
