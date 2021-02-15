@@ -21,8 +21,13 @@ private val FLAGS = 0
 fun NotificationManager.sendNotification(messageBody: String, applicationContext: Context) {
 
 
+    val filename = "The filename or description"
+    val status = "Success"
     // TODO: Step 1.11 create intent
-    val contentIntent = Intent(applicationContext, DetailActivity::class.java)
+    val contentIntent = Intent(applicationContext, DetailActivity::class.java).apply {
+        putExtra(DetailActivity.FILENAME, filename)
+        putExtra(DetailActivity.STATUS, status)
+    }
     // TODO: Step 1.12 create PendingIntent
     val contentPendingIntent = PendingIntent.getActivity(
         applicationContext,
