@@ -3,12 +3,10 @@ package com.udacity
 import android.app.DownloadManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.database.Cursor
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
@@ -16,7 +14,6 @@ import android.os.Bundle
 import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.udacity.util.cancelNotifications
 import com.udacity.util.sendNotification
@@ -28,9 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     private var downloadID: Long = 0
 
-    private lateinit var notificationManager: NotificationManager
-    private lateinit var pendingIntent: PendingIntent
-    private lateinit var action: NotificationCompat.Action
+private lateinit var description: String
 
 
 
@@ -49,18 +44,22 @@ class MainActivity : AppCompatActivity() {
                 -1 -> {
                     Toast.makeText(applicationContext, "Please select a repository before clicking download", Toast.LENGTH_LONG).show()
                     custom_button.buttonState = ButtonState.Clicked
+                    description = ""
                 }
                 R.id.glide_repositoryradioButton -> {
                     custom_button.buttonState = ButtonState.Loading
                     download("https://github.com/bumptech/glide/archive/master.zip")
+                    description = getString(R.string.glide_repository_name)
                 }
                 R.id.currentprojectradioButton -> {
                     custom_button.buttonState = ButtonState.Loading
                     download("https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip")
+                    description = getString(R.string.current_repository_name)
                 }
                 R.id.retrofit_radioButton -> {
                     custom_button.buttonState = ButtonState.Loading
                     download("https://github.com/square/retrofit/archive/master.zip")
+                    description = getString(R.string.retrofit_repository_name)
 
                 }
             }
@@ -83,15 +82,13 @@ class MainActivity : AppCompatActivity() {
             val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
 
             if (downloadID == id) {
-                Toast.makeText(context, "Download Completed here", Toast.LENGTH_LONG).show()
-//                val query = DownloadManager.Query()
-//                query.setFilterById(downloadID)
-////                val cursor: Cursor = d
+
+                val status = "Success"
                 custom_button.buttonState = ButtonState.Completed
                 val notificationManager = ContextCompat.getSystemService(
                     context, NotificationManager::class.java
                 ) as NotificationManager
-                notificationManager.sendNotification("The download is now completed", context)
+                notificationManager.sendNotification("The download is now completed", context, description, status)
             }
         }
     }
@@ -118,24 +115,16 @@ class MainActivity : AppCompatActivity() {
             downloadManager.enqueue(request)// enqueue puts the download request in the queue.
     }
 
-    companion object {
-        private const val URL =
-            "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip"
-        private const val CHANNEL_ID = "channelId"
-    }
-
 
     private fun createChannel(channelId: String, channelName: String) {
-        // TODO: Step 1.6 START create a channel
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Create channel to show notifications.
             val notificationChannel = NotificationChannel(
                 channelId,
                 channelName,
-                // TODO: Step 2.4 change importance
                 NotificationManager.IMPORTANCE_HIGH
             )
-                // TODO: Step 2.6 disable badges for this channel
                 .apply {
                     setShowBadge(true)
                 }
@@ -151,7 +140,6 @@ class MainActivity : AppCompatActivity() {
             notificationManager.createNotificationChannel(notificationChannel)
 
         }
-        // TODO: Step 1.6 END create channel
     }
 
 }

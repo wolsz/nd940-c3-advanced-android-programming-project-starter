@@ -24,4 +24,8 @@
     <string name="download_repository_channel_id">channelId</string>
     <string name="download_notification_channel_description">Download is complete</string>
     <string name="download_notification_channel_name" translatable="true">Repository Downloader</string>
+    <string name="action_button_text">Get Details</string>
+    <string name="navigate_back">Navigate back</string>
+    <string name="file_name_caption">File name:</string>
+    <string name="status_caption">Status:</string>
 </resources>
