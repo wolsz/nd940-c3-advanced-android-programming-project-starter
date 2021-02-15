@@ -17,6 +17,10 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
+        fab.setOnClickListener {
+            finish()
+        }
+
         val notificationManager =
             ContextCompat.getSystemService(
                 applicationContext,
@@ -33,9 +37,6 @@ class DetailActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
     }
 
-    fun closeActivity(view: View) {
-        finish()
-    }
 
     companion object {
         const val FILENAME = "FILENAME"
